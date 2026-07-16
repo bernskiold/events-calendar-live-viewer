@@ -31,7 +31,7 @@
   "devDependencies": {
     "@wordpress/components": "^19.17.0",
     "@wordpress/eslint-plugin": "^9.3.0",
-    "@wordpress/scripts": "^19.2.4",
+    "@wordpress/scripts": "^32.5.1",
     "copy-webpack-plugin": "^9.1.0",
     "eslint": "^8.1.0",
     "fast-glob": "^3.3.3",
