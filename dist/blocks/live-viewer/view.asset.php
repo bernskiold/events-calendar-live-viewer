@@ -2,6 +2,6 @@
 	'dependencies' => array(
 		
 	),
-	'version' => '1263abbd8a2bde61a311',
+	'version' => 'f0107327468e93852642',
 	'type' => 'module'
 );
