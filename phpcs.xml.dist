@@ -4,10 +4,12 @@
 
 	<file>./events-calendar-live-viewer.php</file>
 	<file>./src</file>
+	<file>./blocks</file>
 
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/dist/*</exclude-pattern>
+	<exclude-pattern>blocks/blocks-manifest.php</exclude-pattern>
 
 	<arg name="extensions" value="php"/>
 	<arg name="colors"/>

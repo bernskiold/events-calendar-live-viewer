@@ -1,18 +1,19 @@
 {
-  "apiVersion": 2,
-  "name": "bm/live-viewer",
-  "title": "Live Viewer",
-  "icon": "video-alt",
-  "description": "A live player for The Events Calendar.",
-  "category": "layout",
-  "textdomain": "events-calendar-live-viewer",
-  "keywords": [],
-  "attributes": {},
-  "supports": {
-    "anchor": true,
-    "html": false
-  },
-  "editorScript": "bm-block-live-viewer",
-  "editorStyle": "bm-block-live-viewer-editor",
-  "style": "bm-block-live-viewer"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "bm/live-viewer",
+	"title": "Live Viewer",
+	"icon": "video-alt",
+	"description": "A live player for The Events Calendar.",
+	"category": "media",
+	"textdomain": "events-calendar-live-viewer",
+	"keywords": [ "events", "video", "live" ],
+	"attributes": {},
+	"supports": {
+		"anchor": true,
+		"html": false
+	},
+	"editorScript": "file:../../dist/blocks/live-viewer.js",
+	"viewScriptModule": "file:../../dist/blocks/live-viewer/view.js",
+	"render": "file:./render.php"
 }

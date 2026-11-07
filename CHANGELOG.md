@@ -12,6 +12,16 @@ All notable changes to this project will be documented in this file. This projec
 - Requires PHP 8.2 and WordPress 7.0.
 - Build tooling moved to `@wordpress/scripts` 37 and Node 26.
 - Coding standards are checked with WPCS 3 and PHPCompatibilityWP (`composer lint`).
+- The Live Viewer block uses block API version 3 and is registered from a generated blocks manifest.
+- The front-end player is now a script module (`viewScriptModule`), loaded only when the block renders. This includes templates and widgets as well as post content. It reads its settings from the block's data attributes, so the `eclw-live-viewer` script handle and the `window.ECLW` global are gone.
+- The block respects custom class names from the editor.
+
+### Fixed
+
+- Switching to the next event compares UTC timestamps, so it no longer depends on the site's time zone.
+- No PHP warning on pages without a global post.
+- Events without a video render an empty player instead of passing an empty URL to oEmbed.
+- The editor strings and the placeholder text are translatable.
 
 ## [1.0.0] - 2021-10-31
 

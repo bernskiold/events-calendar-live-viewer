@@ -7,7 +7,6 @@
 
 namespace BernskioldMedia\WP\EventsCalendarLiveViewer;
 
-use BernskioldMedia\WP\EventsCalendarLiveViewer\Blocks\Live_Viewer;
 use BernskioldMedia\WP\EventsCalendarLiveViewer\Rest\NextVideo;
 
 defined( 'ABSPATH' ) || exit;
@@ -17,8 +16,7 @@ defined( 'ABSPATH' ) || exit;
  */
 class Plugin {
 
-	public const TEXTDOMAIN   = 'events-calendar-live-viewer';
-	public const BLOCK_PREFIX = 'bm';
+	public const TEXTDOMAIN = 'events-calendar-live-viewer';
 
 	/**
 	 * Bumped by the release workflow.
@@ -26,20 +24,11 @@ class Plugin {
 	private static string $version = '1.0.0';
 
 	/**
-	 * Dynamic blocks and the classes that render them.
-	 * The key is the block's directory name in /blocks.
-	 */
-	private const DYNAMIC_BLOCKS = [
-		'live-viewer' => Live_Viewer::class,
-	];
-
-	/**
 	 * Classes whose hooks are registered when the plugin boots.
 	 *
 	 * @var class-string<Hookable>[]
 	 */
 	private const BOOT = [
-		Assets::class,
 		NextVideo::class,
 	];
 
@@ -154,29 +143,13 @@ class Plugin {
 	}
 
 	/**
-	 * Register the blocks in /blocks along with their editor scripts.
+	 * Register every block in /blocks from the manifest that
+	 * `npm run build` generates from their block.json files.
 	 */
 	public static function register_blocks(): void {
-		$blocks = glob( self::get_path( 'blocks/*' ), GLOB_ONLYDIR );
-		$blocks = false === $blocks ? [] : $blocks;
-		$blocks = apply_filters( 'events_calendar_live_viewer_blocks', $blocks );
-
-		foreach ( $blocks as $directory ) {
-			$name       = basename( $directory );
-			$asset_meta = include self::get_path( "dist/blocks/{$name}.asset.php" );
-			$handle     = self::BLOCK_PREFIX . '-block-' . $name;
-
-			wp_register_script( $handle, self::get_url( "dist/blocks/{$name}.js" ), $asset_meta['dependencies'], $asset_meta['version'], true );
-
-			$render_class = self::DYNAMIC_BLOCKS[ $name ] ?? null;
-
-			if ( $render_class ) {
-				register_block_type( $directory, [ 'render_callback' => [ $render_class, 'render' ] ] );
-			} else {
-				register_block_type( $directory );
-			}
-
-			wp_set_script_translations( $handle, self::TEXTDOMAIN, self::get_path( 'languages/' ) );
-		}
+		wp_register_block_types_from_metadata_collection(
+			self::get_path( 'blocks' ),
+			self::get_path( 'blocks/blocks-manifest.php' )
+		);
 	}
 }
