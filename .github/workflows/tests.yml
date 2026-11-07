@@ -1,0 +1,28 @@
+name: Tests
+
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+
+permissions:
+    contents: read
+
+concurrency:
+    group: tests-${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    tests:
+        # PHP 8.2-8.5 against WordPress 7.0 and latest (the shared defaults).
+        # tests/php/bootstrap.php downloads The Events Calendar when
+        # bin/install-wp-tests.sh did not provide it via TEC_PLUGIN_DIR.
+        uses: bernskiold/.github/.github/workflows/wordpress-plugin-tests.yml@main
+        with:
+            build: true
+            js-unit: true
+            php-lint: true
+            js-lint: true
+            # dist/ and blocks/blocks-manifest.php are committed.
+            check-dist: true
