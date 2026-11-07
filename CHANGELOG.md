@@ -16,6 +16,10 @@ All notable changes to this project will be documented in this file. This projec
 - The front-end player is now a script module (`viewScriptModule`), loaded only when the block renders. This includes templates and widgets as well as post content. It reads its settings from the block's data attributes, so the `eclw-live-viewer` script handle and the `window.ECLW` global are gone.
 - The block respects custom class names from the editor.
 
+### Added
+
+- PHPUnit integration tests against WordPress and The Events Calendar (`composer test`), and Vitest unit tests for the player (`npm run test:unit`).
+
 ### Fixed
 
 - Switching to the next event compares UTC timestamps, so it no longer depends on the site's time zone.

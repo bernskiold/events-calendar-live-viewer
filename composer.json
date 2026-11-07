@@ -21,16 +21,24 @@
   "require-dev": {
     "dealerdirect/phpcodesniffer-composer-installer": "^1.2",
     "phpcompatibility/phpcompatibility-wp": "^2.1",
-    "wp-coding-standards/wpcs": "^3.4"
+    "phpunit/phpunit": "^9.6",
+    "wp-coding-standards/wpcs": "^3.4",
+    "yoast/phpunit-polyfills": "^4.0"
   },
   "autoload": {
     "psr-4": {
       "BernskioldMedia\\WP\\EventsCalendarLiveViewer\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "BernskioldMedia\\WP\\EventsCalendarLiveViewer\\Tests\\": "tests/php/"
+    }
+  },
   "scripts": {
     "lint": "phpcs",
-    "lint:fix": "phpcbf"
+    "lint:fix": "phpcbf",
+    "test": "phpunit"
   },
   "config": {
     "sort-packages": true,

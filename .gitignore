@@ -13,3 +13,5 @@ Thumbs.db
 .php-cs-fixer.cache
 coverage.xml
 .vscode
+.phpunit.result.cache
+.wp-tests.env
