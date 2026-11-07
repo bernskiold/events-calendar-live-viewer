@@ -70,3 +70,28 @@ add_filter( 'eclw_polling_interval', static function() {
 	return 5 * MINUTE_IN_SECONDS;
 } );
 ```
+
+## Development
+
+```shell
+npm install
+composer install
+npm run build
+```
+
+`npm run build` compiles the editor script and the front-end view module into `dist/` and regenerates `blocks/blocks-manifest.php`. Both are committed.
+
+### Tests
+
+The PHP integration tests run against a real WordPress and The Events Calendar. With a MySQL server available:
+
+```shell
+# Arguments: WordPress version, database name, user, password, host and The Events Calendar version.
+bin/install-wp-tests.sh latest wordpress_tests root root 127.0.0.1 latest > .wp-tests.env
+set -a; . ./.wp-tests.env; set +a
+composer test
+```
+
+The script downloads WordPress, its test library and The Events Calendar from wordpress.org. If `TEC_PLUGIN_DIR` is not set, the test bootstrap downloads The Events Calendar itself.
+
+The view module has unit tests: `npm run test:unit`. Coding standards: `composer lint` and `npm run lint`.
