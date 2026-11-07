@@ -146,7 +146,7 @@ class Plugin {
 	public static function load_languages(): void {
 		$textdomain = self::TEXTDOMAIN;
 		$locale     = is_admin() ? get_user_locale() : get_locale();
-		$locale     = apply_filters( 'plugin_locale', $locale, $textdomain );
+		$locale     = apply_filters( 'plugin_locale', $locale, $textdomain ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- Core filter.
 
 		unload_textdomain( $textdomain );
 		load_textdomain( $textdomain, WP_LANG_DIR . "/{$textdomain}/{$textdomain}-{$locale}.mo" );
@@ -157,7 +157,8 @@ class Plugin {
 	 * Register the blocks in /blocks along with their editor scripts.
 	 */
 	public static function register_blocks(): void {
-		$blocks = glob( self::get_path( 'blocks/*' ), GLOB_ONLYDIR ) ?: [];
+		$blocks = glob( self::get_path( 'blocks/*' ), GLOB_ONLYDIR );
+		$blocks = false === $blocks ? [] : $blocks;
 		$blocks = apply_filters( 'events_calendar_live_viewer_blocks', $blocks );
 
 		foreach ( $blocks as $directory ) {
@@ -178,5 +179,4 @@ class Plugin {
 			wp_set_script_translations( $handle, self::TEXTDOMAIN, self::get_path( 'languages/' ) );
 		}
 	}
-
 }

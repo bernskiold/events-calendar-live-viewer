@@ -7,10 +7,15 @@ event. Perfect for conferences and events with multiple sessions in a row.
 
 ## Requirements
 
+- PHP 8.2 or later
+- WordPress 7.0 or later
+
 The following plugins are required:
 
 - [The Events Calendar](https://theeventscalendar.com/products/wordpress-events-calendar/)
 - [Virtual Events](https://theeventscalendar.com/products/wordpress-virtual-events/)
+
+Without The Events Calendar the plugin stays inactive and shows a notice in the admin.
 
 For this plugin to work your event needs to be structured:
 

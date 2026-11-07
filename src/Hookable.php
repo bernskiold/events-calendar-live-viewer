@@ -18,5 +18,4 @@ interface Hookable {
 	 * Register the class' actions and filters.
 	 */
 	public static function hooks(): void;
-
 }

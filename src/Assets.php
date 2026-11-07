@@ -28,12 +28,16 @@ class Assets implements Hookable {
 		if ( has_block( 'bm/live-viewer', $post->ID ) ) {
 			wp_enqueue_script( 'eclw-live-viewer' );
 
-			$pollingInterval = (int) apply_filters( 'eclw_polling_interval', MINUTE_IN_SECONDS );
+			$polling_interval = (int) apply_filters( 'eclw_polling_interval', MINUTE_IN_SECONDS );
 
-			wp_localize_script( 'eclw-live-viewer', 'ECLW', [
-				'apiUrl'          => get_rest_url( get_current_blog_id(), '/eclw/v1' ),
-				'pollingInterval' => $pollingInterval * 1000, // In milliseconds.
-			] );
+			wp_localize_script(
+				'eclw-live-viewer',
+				'ECLW',
+				[
+					'apiUrl'          => get_rest_url( get_current_blog_id(), '/eclw/v1' ),
+					'pollingInterval' => $polling_interval * 1000, // In milliseconds.
+				]
+			);
 		}
 	}
 }

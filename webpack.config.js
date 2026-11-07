@@ -2,32 +2,18 @@ const path = require( 'path' );
 const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const fastGlob = require( 'fast-glob' );
 const WebpackBar = require( 'webpackbar' );
-const ReplaceInFileWebpackPlugin = require( 'replace-in-file-webpack-plugin' );
-const CopyPlugin = require( 'copy-webpack-plugin' );
 
 /*
  * Matches a block's name in paths in the form
- * build-module/<blockName>/view.js
+ * ./blocks/<blockName>/index.js
  */
 const blockNameRegex = new RegExp( /(?<=blocks\/).*(?=(\/index))/g );
 
-const createBlockEntrypoints = () => {
-	/*
-	 * Returns an array of paths to view.js files within the `@wordpress/block-library` package.
-	 * These paths can be matched by the regex `blockNameRegex` in order to extract
-	 * the block's name.
-	 *
-	 * Returns an empty array if no files were found.
-	 */
-	const blockViewScriptPaths = fastGlob.sync(
-		'./blocks/**/index.js',
-	);
-
-	/*
-	 * Go through the paths found above, in order to define webpack entry points for
-	 * each block's view.js file.
-	 */
-	return blockViewScriptPaths.reduce( ( entries, scriptPath ) => {
+/*
+ * One entry point per block editor script, named after the block's directory.
+ */
+const createBlockEntrypoints = () =>
+	fastGlob.sync( './blocks/**/index.js' ).reduce( ( entries, scriptPath ) => {
 		const [ blockName ] = scriptPath.match( blockNameRegex );
 
 		return {
@@ -35,30 +21,9 @@ const createBlockEntrypoints = () => {
 			[ blockName ]: scriptPath,
 		};
 	}, {} );
-};
-
-const sharedConfig = {
-	...defaultConfig,
-	externalsType: 'window',
-	plugins: [
-		...defaultConfig.plugins,
-		new ReplaceInFileWebpackPlugin( [
-			{
-				dir: 'dist',
-				test: [ /\.js/ ],
-				rules: [
-					{
-						search: /TEXTDOMAIN/gi,
-						replace: 'events-calendar-live-viewer',
-					},
-				],
-			},
-		] ),
-	],
-};
 
 const blocks = {
-	...sharedConfig,
+	...defaultConfig,
 	entry: createBlockEntrypoints(),
 	output: {
 		path: path.resolve( process.cwd(), 'dist', 'blocks' ),
@@ -66,7 +31,7 @@ const blocks = {
 		chunkFilename: '[name].js',
 	},
 	plugins: [
-		...sharedConfig.plugins,
+		...defaultConfig.plugins,
 		new WebpackBar( {
 			name: 'Blocks',
 			color: '#cd1cec',
@@ -75,7 +40,7 @@ const blocks = {
 };
 
 const publicScripts = {
-	...sharedConfig,
+	...defaultConfig,
 	entry: {
 		'live-player': './assets/scripts/src/live-player.js',
 	},
@@ -85,7 +50,7 @@ const publicScripts = {
 		chunkFilename: '[name].js',
 	},
 	plugins: [
-		...sharedConfig.plugins,
+		...defaultConfig.plugins,
 		new WebpackBar( {
 			name: 'Public',
 			color: '#5aec1c',
@@ -93,13 +58,4 @@ const publicScripts = {
 	],
 };
 
-const externals = {
-	...sharedConfig,
-	output: {
-		path: path.resolve( process.cwd(), 'dist' ),
-		filename: '[name].js',
-		chunkFilename: '[name].js',
-	},
-};
-
-module.exports = [ publicScripts, blocks, externals ];
+module.exports = [ publicScripts, blocks ];
