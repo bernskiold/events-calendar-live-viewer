@@ -24,7 +24,7 @@
   },
   "scripts": {
     "setup": "npm install && composer install && npm run build",
-    "build": "wp-scripts build",
+    "build": "wp-scripts build && wp-scripts build-blocks-manifest --input=blocks --output=blocks/blocks-manifest.php",
     "dev": "wp-scripts start",
     "i18n": "npm run i18n:pot",
     "i18n:pot": "npm run build && wp i18n make-pot . ./languages/events-calendar-live-viewer.pot --include=\"dist/,src/,blocks/\"",
@@ -41,6 +41,7 @@
     "@wordpress/block-editor": "^20.0.0",
     "@wordpress/blocks": "^17.1.0",
     "@wordpress/components": "^44.0.0",
+    "@wordpress/dependency-extraction-webpack-plugin": "^7.1.0",
     "@wordpress/i18n": "^7.1.0",
     "@wordpress/scripts": "^37.1.0",
     "fast-glob": "^3.3.3",
