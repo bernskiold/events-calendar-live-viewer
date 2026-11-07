@@ -1,0 +1,28 @@
+# Tells packages.bernskiold.com to rebuild its Satis index as soon as this
+# package publishes a new version.
+name: Notify Satis
+
+on:
+    push:
+        tags: ["*"]
+    release:
+        types: [published]
+    # "Build Release" moves the tag with GITHUB_TOKEN, which does not fire
+    # `push: tags`, so also run once it has finished.
+    workflow_run:
+        workflows: ["Build Release"]
+        types: [completed]
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+concurrency:
+    group: notify-satis
+    cancel-in-progress: true
+
+jobs:
+    notify:
+        if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+        uses: bernskiold/.github/.github/workflows/satis-notify.yml@main
+        secrets: inherit
