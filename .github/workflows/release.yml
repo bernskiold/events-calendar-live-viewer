@@ -39,5 +39,5 @@ jobs:
             # No runtime Composer dependencies: the plugin falls back to its
             # own autoloader, so the ZIP does not need vendor/.
             composer: false
-            satis: true
+            satis: false
         secrets: inherit
