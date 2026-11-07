@@ -9,7 +9,7 @@
  * Text Domain: events-calendar-live-viewer
  * Domain Path: /languages/
  *
- * @package BernskioldMedia\BernskioldMedia\EventsCalendarLiveViewer
+ * @package BernskioldMedia\WP\EventsCalendarLiveViewer
  */
 
 use BernskioldMedia\WP\EventsCalendarLiveViewer\Plugin;
@@ -20,11 +20,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 /**
  * Autoloader
+ *
+ * The plugin has no runtime Composer dependencies, so when it is installed
+ * from a release ZIP without a vendor directory we load our own classes.
  */
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require __DIR__ . '/vendor/autoload.php';
 } else {
-	throw new Exception( 'Autoload does not exist. Please run composer install --no-dev -o.' );
+	spl_autoload_register( static function ( string $class ): void {
+		$prefix = 'BernskioldMedia\\WP\\EventsCalendarLiveViewer\\';
+
+		if ( ! str_starts_with( $class, $prefix ) ) {
+			return;
+		}
+
+		$file = __DIR__ . '/src/' . str_replace( '\\', '/', substr( $class, strlen( $prefix ) ) ) . '.php';
+
+		if ( file_exists( $file ) ) {
+			require $file;
+		}
+	} );
 }
 
 /**
