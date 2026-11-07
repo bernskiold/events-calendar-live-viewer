@@ -3,7 +3,7 @@
  * Plugin Name: Events Calendar Live Viewer
  * Plugin URI:        https://github.com/bernskiold/events-calendar-live-viewer
  * Description:       An auto-updating live viewer for virtual events in The Events Calendar.
- * Version:           1.0.0
+ * Version:           2.0.0
  * Requires at least: 7.0
  * Tested up to:      7.1
  * Requires PHP:      8.2

@@ -21,7 +21,7 @@ class Plugin {
 	/**
 	 * Bumped by the release workflow.
 	 */
-	private static string $version = '1.0.0';
+	private static string $version = '2.0.0';
 
 	/**
 	 * Classes whose hooks are registered when the plugin boots.
