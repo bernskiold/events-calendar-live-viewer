@@ -1,21 +1,43 @@
-name: Build Release
+# Run from Actions -> Release -> Run workflow, or:
+#   gh workflow run release.yml -f version=1.2.3
+#
+# Bumps the version, updates CHANGELOG.md, builds, makes a single
+# "Release x.y.z" commit, tags it (the tag is created once and never moved,
+# so Packagist sees the final commit), publishes the GitHub release with the
+# plugin ZIP and asks Satis to rebuild packages.bernskiold.com. Write the notes ahead of time in a draft release tagged
+# x.y.z if you like; otherwise the notes input or generated notes are used.
+name: Release
 
 on:
-    release:
-        types: [published]
+    workflow_dispatch:
+        inputs:
+            version:
+                description: Version to release, without a leading "v" (e.g. 1.2.3)
+                required: true
+                type: string
+            notes:
+                description: Release notes (optional; a draft release's notes or generated notes are used otherwise)
+                required: false
+                type: string
+            prerelease:
+                description: Pre-release
+                required: false
+                type: boolean
+                default: false
 
 permissions:
     contents: write
 
 jobs:
     release:
-        # Bumps the version in events-calendar-live-viewer.php, package.json and
-        # src/Plugin.php, builds, commits to main, moves the tag and attaches
-        # events-calendar-live-viewer.zip to the release.
         uses: bernskiold/.github/.github/workflows/wordpress-plugin-release.yml@main
         with:
+            version: ${{ inputs.version }}
+            notes: ${{ inputs.notes }}
+            prerelease: ${{ inputs.prerelease }}
             build: true
             # No runtime Composer dependencies: the plugin falls back to its
             # own autoloader, so the ZIP does not need vendor/.
             composer: false
+            satis: true
         secrets: inherit
