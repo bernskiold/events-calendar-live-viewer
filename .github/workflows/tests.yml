@@ -22,4 +22,7 @@ jobs:
         with:
             build: true
             js-unit: true
-            lint: true
+            php-lint: true
+            js-lint: true
+            # dist/ and blocks/blocks-manifest.php are committed.
+            check-dist: true

@@ -23,6 +23,5 @@ concurrency:
 
 jobs:
     notify:
-        if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
         uses: bernskiold/.github/.github/workflows/satis-notify.yml@main
         secrets: inherit

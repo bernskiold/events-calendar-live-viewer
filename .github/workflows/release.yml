@@ -15,4 +15,7 @@ jobs:
         uses: bernskiold/.github/.github/workflows/wordpress-plugin-release.yml@main
         with:
             build: true
+            # No runtime Composer dependencies: the plugin falls back to its
+            # own autoloader, so the ZIP does not need vendor/.
+            composer: false
         secrets: inherit
