@@ -4,12 +4,10 @@ namespace BernskioldMedia\WP\EventsCalendarLiveViewer\Blocks;
 
 use BernskioldMedia\WP\EventsCalendarLiveViewer\EventsHelper;
 use BernskioldMedia\WP\EventsCalendarLiveViewer\Queries;
-use ECLW_Vendor\BernskioldMedia\WP\PluginBase\Blocks\Block;
 
-class Live_Viewer extends Block {
+defined( 'ABSPATH' ) || exit;
 
-	protected static string $block_name = 'bm/live-viewer';
-	protected static string $name       = 'live_viewer';
+class Live_Viewer {
 
 	public static function render( array $attributes ): string {
 		ob_start();

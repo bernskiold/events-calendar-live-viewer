@@ -10,13 +10,11 @@
 
 namespace BernskioldMedia\WP\EventsCalendarLiveViewer;
 
-use ECLW_Vendor\BernskioldMedia\WP\PluginBase\AssetManager;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class Assets extends AssetManager {
+class Assets implements Hookable {
 
 	public static function hooks(): void {
 		add_action( 'wp_enqueue_scripts', [ self::class, 'enqueue' ] );
