@@ -27,10 +27,14 @@ class EventsHelper {
 	}
 
 	public static function the_player( int $post_id ): void {
-		echo wp_oembed_get( self::get_embed_url( $post_id ), [
-			'width'  => 1280,
-			'height' => 720,
-		] );
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- oEmbed HTML from a provider WordPress trusts.
+		echo wp_oembed_get(
+			self::get_embed_url( $post_id ),
+			[
+				'width'  => 1280,
+				'height' => 720,
+			]
+		);
 	}
 
 	public static function should_load_next(): bool {

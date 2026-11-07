@@ -24,11 +24,15 @@ class NextVideo implements Hookable {
 	}
 
 	public static function register_routes(): void {
-		register_rest_route( self::NAMESPACE, self::ROUTE, [
-			'methods'             => WP_REST_Server::READABLE,
-			'callback'            => [ self::class, 'get_next_video' ],
-			'permission_callback' => '__return_true',
-		] );
+		register_rest_route(
+			self::NAMESPACE,
+			self::ROUTE,
+			[
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => [ self::class, 'get_next_video' ],
+				'permission_callback' => '__return_true',
+			]
+		);
 	}
 
 	public static function get_next_video(): WP_REST_Response {

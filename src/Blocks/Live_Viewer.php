@@ -25,10 +25,9 @@ class Live_Viewer {
 					Check back here later for more events.
 				</div>
 			</figure>
-		<?php
+			<?php
 		endif;
 
 		return ob_get_clean();
 	}
-
 }

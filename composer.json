@@ -15,19 +15,32 @@
     "issues": "https://github.com/bernskiold/events-calendar-live-viewer/issues"
   },
   "require": {
-    "php": "^7.4|^8.0",
-    "composer/installers": "^1.0 || ^2.0"
+    "php": "^8.2",
+    "composer/installers": "^2.3"
+  },
+  "require-dev": {
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.2",
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "wp-coding-standards/wpcs": "^3.4"
   },
   "autoload": {
     "psr-4": {
       "BernskioldMedia\\WP\\EventsCalendarLiveViewer\\": "src/"
     }
   },
+  "scripts": {
+    "lint": "phpcs",
+    "lint:fix": "phpcbf"
+  },
   "config": {
     "sort-packages": true,
     "optimize-autoloader": true,
     "allow-plugins": {
-      "composer/installers": true
+      "composer/installers": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    },
+    "platform": {
+      "php": "8.2"
     }
   }
 }

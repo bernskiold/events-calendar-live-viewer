@@ -1,13 +1,18 @@
 <?php
 /**
  * Plugin Name: Events Calendar Live Viewer
- * Plugin URI:  https://bernskioldmedia.com
- * Description: An auto-updating live viewer for virtual events in The Events Calendar.
- * Version:     1.0.0
- * Author:      Bernskiold Media
- * Author URI:  https://bernskioldmedia.com
- * Text Domain: events-calendar-live-viewer
- * Domain Path: /languages/
+ * Plugin URI:        https://github.com/bernskiold/events-calendar-live-viewer
+ * Description:       An auto-updating live viewer for virtual events in The Events Calendar.
+ * Version:           1.0.0
+ * Requires at least: 7.0
+ * Tested up to:      7.1
+ * Requires PHP:      8.2
+ * Requires Plugins:  the-events-calendar
+ * Author:            Bernskiold
+ * Author URI:        https://bernskiold.com
+ * License:           GPL-3.0-or-later
+ * Text Domain:       events-calendar-live-viewer
+ * Domain Path:       /languages/
  *
  * @package BernskioldMedia\WP\EventsCalendarLiveViewer
  */
@@ -27,19 +32,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require __DIR__ . '/vendor/autoload.php';
 } else {
-	spl_autoload_register( static function ( string $class ): void {
-		$prefix = 'BernskioldMedia\\WP\\EventsCalendarLiveViewer\\';
+	spl_autoload_register(
+		static function ( string $class_name ): void {
+			$prefix = 'BernskioldMedia\\WP\\EventsCalendarLiveViewer\\';
 
-		if ( ! str_starts_with( $class, $prefix ) ) {
-			return;
+			if ( ! str_starts_with( $class_name, $prefix ) ) {
+				return;
+			}
+
+			$file = __DIR__ . '/src/' . str_replace( '\\', '/', substr( $class_name, strlen( $prefix ) ) ) . '.php';
+
+			if ( file_exists( $file ) ) {
+				require $file;
+			}
 		}
-
-		$file = __DIR__ . '/src/' . str_replace( '\\', '/', substr( $class, strlen( $prefix ) ) ) . '.php';
-
-		if ( file_exists( $file ) ) {
-			require $file;
-		}
-	} );
+	);
 }
 
 /**
