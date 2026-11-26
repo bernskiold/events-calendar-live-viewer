@@ -33,7 +33,7 @@ class Live_Viewer {
 			[
 				'class'                 => 'eclw-player',
 				'data-event-id'         => (string) $event_id,
-				'data-endpoint'         => esc_url_raw( rest_url( NextVideo::NAMESPACE . NextVideo::ROUTE ) ),
+				'data-endpoint'         => esc_url_raw( rest_url( NextVideo::REST_NAMESPACE . NextVideo::ROUTE ) ),
 				'data-polling-interval' => (string) ( self::get_polling_interval() * 1000 ),
 			]
 		);

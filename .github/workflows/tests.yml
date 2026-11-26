@@ -26,3 +26,14 @@ jobs:
             js-lint: true
             # dist/ and blocks/blocks-manifest.php are committed.
             check-dist: true
+
+    php-8-6:
+        # PHP 8.6 only against the latest WordPress. WordPress 7.0 calls
+        # spl_object_hash(), which PHP 8.6 deprecates, and the shared matrix
+        # cannot exclude single PHP x WP pairs. The main job covers lint,
+        # JS and the build check.
+        uses: bernskiold/.github/.github/workflows/wordpress-plugin-tests.yml@main
+        with:
+            php-versions: '["8.6"]'
+            wp-versions: '["latest"]'
+            build: false

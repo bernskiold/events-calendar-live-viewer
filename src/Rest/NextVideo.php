@@ -16,8 +16,8 @@ defined( 'ABSPATH' ) || exit;
  */
 class NextVideo implements Hookable {
 
-	public const NAMESPACE = 'eclw/v1';
-	public const ROUTE     = '/next-video';
+	public const REST_NAMESPACE = 'eclw/v1';
+	public const ROUTE          = '/next-video';
 
 	public static function hooks(): void {
 		add_action( 'rest_api_init', [ self::class, 'register_routes' ] );
@@ -25,7 +25,7 @@ class NextVideo implements Hookable {
 
 	public static function register_routes(): void {
 		register_rest_route(
-			self::NAMESPACE,
+			self::REST_NAMESPACE,
 			self::ROUTE,
 			[
 				'methods'             => WP_REST_Server::READABLE,
